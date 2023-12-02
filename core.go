@@ -35,6 +35,10 @@ func (t Time) Equal(u Time) bool {
 	return time.Time(t).Equal(time.Time(u))
 }
 
+func (t Time) Sub(u Time) time.Duration {
+  return time.Time(t).Sub(time.Time(u))
+}
+
 func (t Time) Add(d time.Duration) Time {
 	return Time(time.Time(t).Add(d))
 }
