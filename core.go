@@ -36,11 +36,15 @@ func (t Time) Equal(u Time) bool {
 }
 
 func (t Time) Sub(u Time) time.Duration {
-  return time.Time(t).Sub(time.Time(u))
+	return time.Time(t).Sub(time.Time(u))
 }
 
 func (t Time) Add(d time.Duration) Time {
 	return Time(time.Time(t).Add(d))
+}
+
+func (t Time) Format(layout string) string {
+	return time.Time(t).Format(layout)
 }
 
 func (t Time) MarshalJSON() ([]byte, error) {
