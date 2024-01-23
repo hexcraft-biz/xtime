@@ -23,6 +23,11 @@ func MysqlMax() Time {
 	return Time(time.Date(9999, time.December, 31, 23, 59, 59, 999999999, time.UTC))
 }
 
+func Parse(layout, value string) (Time, error) {
+	t, err := time.Parse(layout, value)
+	return Time(t), err
+}
+
 func (t Time) Before(u Time) bool {
 	return time.Time(t).Before(time.Time(u))
 }
