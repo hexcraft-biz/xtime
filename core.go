@@ -28,6 +28,10 @@ func Parse(layout, value string) (Time, error) {
 	return Time(t), err
 }
 
+func (t Time) IsZero() bool {
+	return time.Time(t).IsZero()
+}
+
 func (t Time) Before(u Time) bool {
 	return time.Time(t).Before(time.Time(u))
 }
