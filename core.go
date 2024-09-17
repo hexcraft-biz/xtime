@@ -72,6 +72,19 @@ func (t *Time) UnmarshalJSON(data []byte) error {
 	return (*time.Time)(t).UnmarshalJSON(data)
 }
 
+func (t Time) MarshalText() ([]byte, error) {
+	return []byte(time.Time(t).Format(time.RFC3339)), nil
+}
+
+func (t *Time) UnmarshalText(data []byte) error {
+	parsedTime, err := time.Parse(time.RFC3339, string(data))
+	if err != nil {
+		return errors.New("invalid time format, must be RFC-3339")
+	}
+	*t = Time(parsedTime)
+	return nil
+}
+
 func (t Time) Value() (driver.Value, error) {
 	return time.Time(t), nil
 }
