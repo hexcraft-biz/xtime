@@ -77,12 +77,7 @@ func (t Time) MarshalText() ([]byte, error) {
 }
 
 func (t *Time) UnmarshalText(data []byte) error {
-	parsedTime, err := time.Parse(time.RFC3339, string(data))
-	if err != nil {
-		return errors.New("invalid time format, must be RFC-3339")
-	}
-	*t = Time(parsedTime)
-	return nil
+	return (*time.Time)(t).UnmarshalText(data)
 }
 
 func (t Time) Value() (driver.Value, error) {
