@@ -3,6 +3,7 @@ package xtime
 import (
 	"database/sql/driver"
 	"errors"
+	"fmt"
 	"time"
 )
 
@@ -82,4 +83,28 @@ func (t *Time) UnmarshalText(data []byte) error {
 
 func (t Time) Value() (driver.Value, error) {
 	return time.Time(t), nil
+}
+
+func (t *Time) Scan(value interface{}) error {
+	switch v := value.(type) {
+	case time.Time:
+		*t = Time(v)
+		return nil
+	case []byte:
+		parsedTime, err := time.Parse("2006-01-02 15:04:05", string(v))
+		if err != nil {
+			return err
+		}
+		*t = Time(parsedTime)
+		return nil
+	case string:
+		parsedTime, err := time.Parse("2006-01-02 15:04:05", v)
+		if err != nil {
+			return err
+		}
+		*t = Time(parsedTime)
+		return nil
+	default:
+		return fmt.Errorf("unsupported Scan type for xtime.Time: %T", value)
+	}
 }
