@@ -28,6 +28,10 @@ func Parse(layout, value string) (Time, error) {
 	return Time(t), err
 }
 
+func (t Time) UTC() Time {
+	return Time(time.Time(t).UTC())
+}
+
 func (t Time) IsZero() bool {
 	return time.Time(t).IsZero()
 }
