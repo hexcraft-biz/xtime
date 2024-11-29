@@ -85,5 +85,5 @@ func (t *Time) UnmarshalText(data []byte) error {
 }
 
 func (t Time) Value() (driver.Value, error) {
-	return time.Time(t).UTC(), nil
+	return time.Time(t).UTC().Format("2006-01-02 15:04:05"), nil
 }
